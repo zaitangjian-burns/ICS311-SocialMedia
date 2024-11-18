@@ -42,5 +42,20 @@ public class Main {
         String formattedOutput = generator.generateWordCloudList(wordFrequency);
 
         System.out.println(formattedOutput); // Outputs the formatted word frequencies
+
+        // Show the trending posts based on how many views it received
+        System.out.println("Trending Posts by Views:");
+        List<SocialMediaDataStructure.Post> trendingPostsByViews = socialMediaData.getTrendingPosts("views");
+        for (SocialMediaDataStructure.Post post : trendingPostsByViews) {
+            System.out.println(post.content + " | Views: " + post.viewCount);
+        }
+
+        // Show the trending posts based on how many comments it received
+        System.out.println("\nTrending Posts by Comments:");
+        List<SocialMediaDataStructure.Post> trendingPostsByComments = socialMediaData.getTrendingPosts("comments");
+        for (SocialMediaDataStructure.Post post : trendingPostsByComments) {
+            System.out.println(post.content + " | Comments: " + post.commentCount);
+        }
+
     }
 }
