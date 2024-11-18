@@ -47,6 +47,8 @@ public class SocialMediaDataStructure {
         List<Comment> comments;
         List<String> viewedBy;
         Date creationDate;
+        int viewCount; //how many views
+        int commentCount; //how many comments
 
         public Post(String content, String authorUsername, Date creationDate) {
             this.content = content;
@@ -54,14 +56,20 @@ public class SocialMediaDataStructure {
             this.comments = new ArrayList<>();
             this.viewedBy = new ArrayList<>();
             this.creationDate = creationDate;
+            this.viewCount = 0;
+            this.commentCount = 0;
         }
 
         public void addComment(Comment comment) {
             comments.add(comment);
+            commentCount++; //increase the comment count
         }
 
         public void addView(String username) {
-            viewedBy.add(username);
+            if (!viewedBy.contains(username)) {
+                viewedBy.add(username);
+                viewCount++; //increase the view count
+            }
         }
     }
 
@@ -107,5 +115,17 @@ public class SocialMediaDataStructure {
         return posts;
     }
 
-    // Additional methods to manage data can be added here
+    //Find the trending posts
+    public List<Post> getTrendingPosts(String sortBy) {
+        List<Post> sortedPosts = new ArrayList<>(posts);
+        
+        // Sort the posts based on views or comments
+        if (sortBy.equals("views")) {
+            sortedPosts.sort((p1, p2) -> Integer.compare(p2.viewCount, p1.viewCount));
+        } else if (sortBy.equals("comments")) {
+            sortedPosts.sort((p1, p2) -> Integer.compare(p2.commentCount, p1.commentCount));
+        }
+        
+        return sortedPosts;
+    }
 }
