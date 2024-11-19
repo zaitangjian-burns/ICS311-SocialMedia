@@ -43,19 +43,34 @@ public class Main {
 
         System.out.println(formattedOutput); // Outputs the formatted word frequencies
 
-        // Show the trending posts based on how many views it received
-        System.out.println("Trending Posts by Views:");
-        List<SocialMediaDataStructure.Post> trendingPostsByViews = socialMediaData.getTrendingPosts("views");
-        for (SocialMediaDataStructure.Post post : trendingPostsByViews) {
-            System.out.println(post.content + " | Views: " + post.viewCount);
-        }
+        TrendingPost trendingPost = new TrendingPost(socialMediaData);
 
-        // Show the trending posts based on how many comments it received
-        System.out.println("\nTrending Posts by Comments:");
-        List<SocialMediaDataStructure.Post> trendingPostsByComments = socialMediaData.getTrendingPosts("comments");
-        for (SocialMediaDataStructure.Post post : trendingPostsByComments) {
-            System.out.println(post.content + " | Comments: " + post.commentCount);
-        }
+        // Get trending posts from exactly 7 days ago 
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, -7);
+        Date oneWeekAgo = cal.getTime();
+
+        System.out.println("Trending Posts in the Last 7 Days by View Count:");
+        List<SocialMediaDataStructure.Post> lastWeekTrending = trendingPost.getTrendingPosts(
+                "views",
+                oneWeekAgo,
+                new Date(),
+                null
+        );
+        trendingPost.displayTrendingPosts(lastWeekTrending);
+
+        // Get trending posts by comments for users in the USA
+        Map<String, String> userFilters = new HashMap<>();
+        userFilters.put("location", "USA");
+
+        System.out.println("\nTrending Posts by Comments for Users in the USA:");
+        List<SocialMediaDataStructure.Post> filteredTrending = trendingPost.getTrendingPosts(
+                "comments",
+                null,
+                null,
+                userFilters
+        );
+        trendingPost.displayTrendingPosts(filteredTrending);
 
     }
 }
