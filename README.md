@@ -1,0 +1,1 @@
+Produces a word cloud using only a subset of the social media data while simultaneously restricting which posts can be used(Problem 3) and produces a report of trending posts based on specific attributes (Problem 4).
