@@ -115,17 +115,5 @@ public class SocialMediaDataStructure {
         return posts;
     }
 
-    //Find the trending posts
-    public List<Post> getTrendingPosts(String sortBy) {
-        List<Post> sortedPosts = new ArrayList<>(posts);
-        
-        // Sort the posts based on views or comments
-        if (sortBy.equals("views")) {
-            sortedPosts.sort((p1, p2) -> Integer.compare(p2.viewCount, p1.viewCount));
-        } else if (sortBy.equals("comments")) {
-            sortedPosts.sort((p1, p2) -> Integer.compare(p2.commentCount, p1.commentCount));
-        }
-        
-        return sortedPosts;
-    }
+    
 }
